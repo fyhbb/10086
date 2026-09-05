@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>混乱的网页 - 绝对不是病毒</title>
+    <style>
+        body { background: #000; color: #0f0; font-family: monospace; }
+        .chaos { animation: spin 2s linear infinite; }
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        #secret { display: none; }
+        .box { border: 1px solid red; padding: 10px; margin: 5px; }
+    </style>
+</head>
+<body>
+    <h1 style="color: lime; text-align: center; font-size: 48px;">欢迎来到混乱世界</h1>
+    <div class="box" id="container1">
+        <h2>计算器 (超烂版)</h2>
+        <input type="number" id="num1" placeholder="数字1" style="width:80px;">
+        <select id="op">
+            <option value="+">+</option>
+            <option value="-">-</option>
+            <option value="*">*</option>
+            <option value="/">/</option>
+            <option value="^">^</option>
+            <option value="%">%</option>
+            <option value="**">**</option>
+        </select>
+        <input type="number" id="num2" placeholder="数字2" style="width:80px;">
+        <button onclick="calc()">计算</button>
+        <div id="result" style="color: yellow; font-size: 24px; margin-top: 10px;"></div>
+    </div>
+
+    <div class="box" id="container2">
+        <h2>按钮点击计数器 (没用的功能)</h2>
+        <p>你已经点击了 <span id="clickCount">0</span> 次</p>
+        <button onclick="clickMe()" id="clickBtn">点我!</button>
+        <button onclick="resetClicks()">重置</button>
+        <div id="clickHistory" style="max-height: 100px; overflow: auto; border: 1px solid green;"></div>
+    </div>
+
+    <div class="box">
+        <h2>随机颜色生成器 (让眼睛瞎掉)</h2>
+        <button onclick="randomColor()">生成随机颜色</button>
+        <button onclick="strobeMode()">频闪模式 (慎点)</button>
+        <button onclick="stopStrobe()">停止频闪</button>
+        <div id="colorDisplay" style="width:200px; height:200px; margin:10px; border:1px solid white;"></div>
+        <p>当前颜色: <span id="colorCode"></span></p>
+    </div>
+
+    <div class="box">
+        <h2>TODO 列表 (永远完不成)</h2>
+        <input type="text" id="todoInput" placeholder="输入待办事项">
+        <button onclick="addTodo()">添加</button>
+        <button onclick="deleteAll()">全部删除 (为什么要用这个?)</button>
+        <ul id="todoList"></ul>
+    </div>
+
+    <div class="box">
+        <h2>时间显示 (会越来越慢)</h2>
+        <div id="clock" style="font-size: 36px;"></div>
+        <button onclick="changeSpeed()">改变速度</button>
+        <button onclick="reverseTime()">倒流时间</button>
+    </div>
+
+    <div class="box">
+        <h2>粒子效果 (CPU杀手)</h2>
+        <canvas id="particleCanvas" width="400" height="200" style="border:1px solid white;"></canvas>
+        <button onclick="startParticles()">开始</button>
+        <button onclick="stopParticles()">停止 (强烈建议)</button>
+        <p>粒子数量: <span id="particleCount">0</span></p>
+    </div>
+
+    <div class="box" id="secret">
+        <h2 style="color: red;">你发现了秘密区域!</h2>
+        <p>这里什么都没有, 别看了</p>
+        <button onclick="alert('真的什么都没有!')">确认</button>
+    </div>
+
+    <button onclick="document.getElementById('secret').style.display='block'" style="position:fixed; bottom:10px; right:10px; opacity:0.1;">?</button>
+
+    <script>
+        var x = 0; var y = 0; var z = 0; var w = 0;
+        var clickCounter = 0; var strobeInterval = null;
+        var particleInterval = null; var timeDirection = 1;
+        var timeSpeed = 1000; var particles = [];
+        var canvas = document.getElementById('particleCanvas');
+        var ctx = canvas.getContext('2d');
+        var history = []; var maxHistory = 10;
+
+        function calc() {
+            var a = parseFloat(document.getElementById('num1').value);
+            var b = parseFloat(document.getElementById('num2').value);
+            var op = document.getElementById('op').value;
+            var r = 0;
+            if (isNaN(a)) { a = 0; }
+            if (isNaN(b)) { b = 0; }
+            switch(op) {
+                case '+': r = a + b; break;
+                case '-': r = a - b; break;
+                case '*': r = a * b; break;
+                case '/':
+                    if (b == 0) {
+                        document.getElementById('result').innerHTML = "不能除以0! (废话)";
+                        return;
+                    }
+                    r = a / b;
+                    break;
+                case '^': r = Math.pow(a, b); break;
+                case '%': r = a % b; break;
+                case '**': r = Math.pow(a, b); break;
+                default: r = "???";
+            }
+            if (r === Infinity) { r = "∞"; }
+            if (r === -Infinity) { r = "-∞"; }
+            if (isNaN(r)) { r = "NaN (你搞坏了计算器)"; }
+            document.getElementById('result').innerHTML = "= " + r;
+            // 副作用: 随机改变背景色
+            document.body.style.backgroundColor = randomColorCode();
+        }
+
+        function clickMe() {
+            clickCounter++;
+            document.getElementById('clickCount').innerHTML = clickCounter;
+            var historyDiv = document.getElementById('clickHistory');
+            var time = new Date().toLocaleTimeString();
+            history.unshift(time + " - 第" + clickCounter + "次点击");
+            if (history.length > maxHistory) { history.pop(); }
+            historyDiv.innerHTML = history.join('<br>');
+            // 25% 概率显示奇怪的消息
+            if (Math.random() < 0.25) {
+                var messages = [
+                    "你为什么要点这个?", "这有什么意义?",
+                    "我觉得你应该去做更有意义的事",
+                    "你已经浪费了" + clickCounter + "次点击",
+                    "恭喜你, 你点亮了一盏没有意义的灯",
+                    "点击数: " + clickCounter + " (毫无意义的数字)",
+                    "我劝你善良",
+                    "你的鼠标还好吗?",
+                    "别点了, 没有彩蛋的"
+                ];
+                var idx = Math.floor(Math.random() * messages.length);
+                document.getElementById('clickBtn').innerHTML = messages[idx];
+                setTimeout(function() {
+                    document.getElementById('clickBtn').innerHTML = "点我!";
+                }, 2000);
+            }
+            if (clickCounter == 10) {
+                alert("你点了10次了! 但什么也不会发生!");
+            }
+            if (clickCounter == 100) {
+                alert("100次! 你赢了! 奖品是什么? 没有!");
+                clickCounter = 0;
+                document.getElementById('clickCount').innerHTML = "0 (被重置了)";
+            }
+        }
+
+        function resetClicks() {
+            clickCounter = 0;
+            document.getElementById('clickCount').innerHTML = "0";
+            history = [];
+            document.getElementById('clickHistory').innerHTML = "";
+        }
+
+        function randomColorCode() {
+            var r = Math.floor(Math.random() * 256);
+            var g = Math.floor(Math.random() * 256);
+            var b = Math.floor(Math.random() * 256);
+            return "rgb(" + r + "," + g + "," + b + ")";
+        }
+
+        function randomColor() {
+            var color = randomColorCode();
+            document.getElementById('colorDisplay').style.backgroundColor = color;
+            document.getElementById('colorCode').innerHTML = color;
+        }
+
+        function strobeMode() {
+            if (strobeInterval) { return; }
+            strobeInterval = setInterval(function() {
+                document.body.style.backgroundColor = randomColorCode();
+                document.body.style.color = randomColorCode();
+            }, 50);
+        }
+
+        function stopStrobe() {
+            if (strobeInterval) {
+                clearInterval(strobeInterval);
+                strobeInterval = null;
+                document.body.style.backgroundColor = "#000";
+                document.body.style.color = "#0f0";
+            }
+        }
+
+        function addTodo() {
+            var input = document.getElementById('todoInput');
+            var text = input.value.trim();
+            if (text === "") {
+                text = "未命名的待办事项 (和你的人生一样)";
+            }
+            var li = document.createElement('li');
+            li.innerHTML = text + ' <button onclick="this.parentNode.remove()">删除</button>';
+            // 随机位置插入
+            var list = document.getElementById('todoList');
+            if (Math.random() < 0.3 && list.children.length > 0) {
+                var idx = Math.floor(Math.random() * list.children.length);
+                list.insertBefore(li, list.children[idx]);
+            } else {
+                list.appendChild(li);
+            }
+            input.value = "";
+        }
+
+        function deleteAll() {
+            if (confirm("你确定要全部删除吗? (真的没用)")) {
+                document.getElementById('todoList').innerHTML = "";
+                alert("已删除! (开心了吗?)");
+            }
+        }
+
+        function updateClock() {
+            var now = new Date();
+            var timeStr = now.toLocaleTimeString();
+            var extra = "";
+            if (timeDirection < 0) { extra = " (倒流中...)"; }
+            document.getElementById('clock').innerHTML = timeStr + extra;
+            // 越来越慢的逻辑
+            timeSpeed = Math.max(100, timeSpeed + (timeDirection * 10));
+            setTimeout(updateClock, timeSpeed);
+        }
+
+        function changeSpeed() {
+            var speeds = [100, 250, 500, 1000, 2000, 5000];
+            var idx = Math.floor(Math.random() * speeds.length);
+            timeSpeed = speeds[idx];
+            document.getElementById('clock').innerHTML += " (速度: " + timeSpeed + "ms)";
+        }
+
+        function reverseTime() {
+            timeDirection *= -1;
+            if (timeDirection > 0) {
+                document.getElementById('clock').style.color = "#0f0";
+            } else {
+                document.getElementById('clock').style.color = "#f00";
+            }
+        }
+
+        // 粒子系统 (超级烂的实现)
+        function Particle() {
+            this.x = Math.random() * canvas.width;
+            this.y = Math.random() * canvas.height;
+            this.vx = (Math.random() - 0.5) * 4;
+            this.vy = (Math.random() - 0.5) * 4;
+            this.size = Math.random() * 5 + 1;
+            this.color = randomColorCode();
+            this.life = Math.random() * 200 + 100;
+        }
+
+        function startParticles() {
+            if (particleInterval) { return; }
+            for (var i = 0; i < 50; i++) {
+                particles.push(new Particle());
+            }
+            particleInterval = setInterval(drawParticles, 30);
+        }
+
+        function drawParticles() {
+            ctx.fillStyle = "rgba(0,0,0,0.1)";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            for (var i = particles.length - 1; i >= 0; i--) {
+                var p = particles[i];
+                p.x += p.vx;
+                p.y += p.vy;
+                p.life--;
+                if (p.life <= 0 || p.x < 0 || p.x > canvas.width || p.y < 0 || p.y > canvas.height) {
+                    particles.splice(i, 1);
+                    particles.push(new Particle());
+                    continue;
+                }
+                ctx.fillStyle = p.color;
+                ctx.fillRect(p.x, p.y, p.size, p.size);
+                // 随机弹跳
+                if (Math.random() < 0.01) { p.vx = -p.vx; }
+                if (Math.random() < 0.01) { p.vy = -p.vy; }
+                // 随机变色
+                if (Math.random() < 0.05) { p.color = randomColorCode(); }
+            }
+            document.getElementById('particleCount').innerHTML = particles.length;
+        }
+
+        function stopParticles() {
+            if (particleInterval) {
+                clearInterval(particleInterval);
+                particleInterval = null;
+            }
+        }
+
+        // 初始化
+        updateClock();
+        randomColor();
+
+        // 彩蛋: 快速点击标题5次
+        var titleClicks = 0;
+        document.querySelector('h1').addEventListener('click', function() {
+            titleClicks++;
+            if (titleClicks >= 5) {
+                document.body.style.transform = "rotate(180deg)";
+                setTimeout(function() {
+                    document.body.style.transform = "none";
+                }, 3000);
+                titleClicks = 0;
+            }
+        });
+
+        // 隐藏的Konami Code
+        var konamiCode = [38,38,40,40,37,39,37,39,66,65];
+        var konamiIndex = 0;
+        document.addEventListener('keydown', function(e) {
+            if (e.keyCode === konamiCode[konamiIndex]) {
+                konamiIndex++;
+                if (konamiIndex === konamiCode.length) {
+                    alert("你找到了隐藏的Konami Code! 奖品: 什么都没有!");
+                    document.body.style.background = "linear-gradient(45deg, red, orange, yellow, green, blue, purple)";
+                    konamiIndex = 0;
+                }
+            } else {
+                konamiIndex = 0;
+            }
+        });
+
+        // 控制台彩蛋
+        console.log("%c 别在这里找东西了!", "color: red; font-size: 20px;");
+        console.log("%c 这里真的什么都没有", "color: green; font-size: 14px;");
+        console.log("%c 除非你想看这段烂代码", "color: yellow;");
+    </script>
+</body>
+</html>

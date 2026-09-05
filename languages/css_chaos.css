@@ -1,0 +1,602 @@
+/* ============================================
+   混乱的CSS文件 - 史山代码
+   作者: 一个不想写CSS的人
+   日期: 2026年9月5日
+   版本: v0.0.1 (永远是0.0.1)
+   说明: 这个文件没什么用, 别看了
+   ============================================ */
+
+/* 全局样式 - 为什么用这么多选择器? 因为可以! */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Comic Sans MS", "Segoe UI", monospace, sans-serif;
+}
+
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+    scroll-behavior: auto;  /* 覆盖上面的, 因为我改主意了 */
+}
+
+body {
+    background-color: #000;
+    color: #fff;
+    line-height: 1.6;
+    line-height: 1.5;  /* 又改了 */
+    overflow-x: hidden;
+    overflow-x: visible;  /* 算了还是隐藏吧 */
+    overflow-x: hidden;
+}
+
+/* 标题样式 - 混乱程度: ★★★★★ */
+h1 {
+    font-size: 48px;
+    color: lime;
+    text-align: center;
+    text-align: left;  /* 不对, 居中 */
+    text-align: center;
+    text-transform: uppercase;
+    text-transform: lowercase;  /* 还是小写吧 */
+    text-transform: capitalize;  /* 首字母大写 */
+    text-shadow: 2px 2px #ff0000, -2px -2px #0000ff;
+    letter-spacing: 5px;
+    letter-spacing: -5px;  /* 负间距! */
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+    margin-bottom: 30px;
+    margin-bottom: 20px;
+    padding: 10px;
+    border-bottom: 3px solid red;
+    border-bottom: 3px dashed blue;  /* 改成虚线 */
+    border-bottom: 3px solid red;  /* 还是红色实线吧 */
+}
+
+h2 {
+    font-size: 24px;
+    color: cyan;
+    margin: 15px 0;
+    margin: 10px 0 10px 0;
+    margin: 15px 0;
+    text-decoration: underline;
+    text-decoration: overline;  /* 上划线! */
+    text-decoration: underline;
+}
+
+h3 {
+    font-size: 18px;
+    color: yellow;
+    margin: 10px 0;
+    text-decoration: none;  /* 不要下划线了 */
+}
+
+/* 段落样式 */
+p {
+    margin-bottom: 10px;
+    margin-bottom: 15px;
+    margin-bottom: 10px;
+    line-height: 1.6;
+    line-height: 1.8;
+    line-height: 1.6;
+    text-indent: 2em;
+    text-indent: 0;  /* 算了不缩进了 */
+    text-align: justify;
+}
+
+/* 链接样式 - 为什么要这么多变体? */
+a {
+    color: #00ff00;
+    color: #00ff00;  /* 重复了 */
+    text-decoration: none;
+    text-decoration: underline;  /* 还是有下划线吧 */
+    transition: all 0.3s ease;
+    transition: all 0.5s ease;  /* 改成0.5秒 */
+    transition: all 0.3s ease;  /* 还是0.3秒吧 */
+}
+
+a:hover {
+    color: red;
+    color: #ff0000;  /* 同样的颜色但用不同写法 */
+    text-decoration: underline;
+    text-decoration: none;  /* hover时去掉下划线 */
+    text-decoration: underline;  /* 还是有吧 */
+    font-size: 1.1em;
+    font-size: 1.05em;  /* 小一点 */
+    background-color: yellow;
+    background-color: transparent;  /* 算了不加背景 */
+}
+
+a:visited {
+    color: purple;
+    color: #800080;  /* 同样的颜色 */
+}
+
+/* 按钮样式 - 完全混乱 */
+button {
+    background-color: #333;
+    background-color: #444;  /* 稍微亮一点 */
+    background-color: #333;  /* 还是暗一点吧 */
+    color: white;
+    color: #fff;  /* 简写 */
+    padding: 8px 16px;
+    padding: 10px 20px;  /* 改大一点 */
+    padding: 8px 16px;  /* 还是小一点 */
+    border: 1px solid #555;
+    border: 2px solid #555;  /* 加粗边框 */
+    border: 1px solid #555;  /* 还是细一点 */
+    border-radius: 4px;
+    border-radius: 0;  /* 不要圆角了 */
+    border-radius: 4px;  /* 还是要吧 */
+    cursor: pointer;
+    font-size: 14px;
+    font-size: 16px;  /* 大一点 */
+    font-size: 14px;  /* 还是14px */
+    transition: background-color 0.2s;
+    transition: background-color 0.3s;  /* 慢一点 */
+    margin: 5px;
+    margin: 3px;  /* 小一点 */
+    margin: 5px;
+    outline: none;
+    outline: 2px solid blue;  /* 加个蓝色轮廓 */
+    outline: none;  /* 算了不要了 */
+}
+
+button:hover {
+    background-color: #555;
+    background-color: #666;  /* 更亮 */
+    background-color: #555;  /* 还是暗一点 */
+    transform: scale(1.05);
+    transform: scale(1.1);  /* 大一点 */
+    transform: scale(1.05);  /* 小一点 */
+}
+
+button:active {
+    transform: scale(0.95);
+    background-color: #222;
+}
+
+/* 输入框样式 */
+input[type="text"],
+input[type="number"],
+input[type="email"],
+input[type="password"],
+input[type="search"] {
+    padding: 8px;
+    padding: 10px;  /* 大一点 */
+    padding: 8px;  /* 小一点 */
+    border: 1px solid #ccc;
+    border: 2px solid #ccc;  /* 粗一点 */
+    border: 1px solid #999;  /* 换个颜色 */
+    border: 1px solid #ccc;  /* 还是浅色吧 */
+    border-radius: 4px;
+    border-radius: 0;  /* 不要圆角 */
+    border-radius: 4px;  /* 还是要 */
+    font-size: 14px;
+    width: 100%;
+    max-width: 300px;
+    max-width: 500px;  /* 宽一点 */
+    max-width: 300px;  /* 还是300吧 */
+    margin-bottom: 10px;
+    margin-bottom: 15px;
+    margin-bottom: 10px;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus {
+    border-color: #007bff;
+    border-color: blue;  /* 蓝色 */
+    border-color: #007bff;  /* 还是用十六进制 */
+    outline: none;
+    outline: 2px solid blue;  /* 加个轮廓 */
+    outline: none;  /* 不要了 */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    box-shadow: none;  /* 不要阴影了 */
+}
+
+/* 容器样式 */
+.container {
+    max-width: 1200px;
+    max-width: 1000px;  /* 小一点 */
+    max-width: 1200px;  /* 还是1200吧 */
+    margin: 0 auto;
+    padding: 20px;
+    padding: 15px;  /* 小一点 */
+    padding: 20px;
+}
+
+.box {
+    border: 1px solid #333;
+    border: 2px solid #444;  /* 粗一点, 亮一点 */
+    border: 1px solid #333;  /* 还是细一点 */
+    padding: 15px;
+    padding: 20px;  /* 大一点 */
+    padding: 15px;
+    margin-bottom: 20px;
+    margin-bottom: 15px;
+    margin-bottom: 20px;
+    background-color: #111;
+    background-color: #1a1a1a;  /* 稍微亮一点 */
+    background-color: #111;  /* 还是暗一点 */
+    border-radius: 4px;
+    border-radius: 8px;  /* 大圆角 */
+    border-radius: 4px;  /* 小圆角 */
+}
+
+/* 列表样式 */
+ul {
+    list-style: none;
+    list-style-type: disc;  /* 还是要圆点 */
+    list-style-type: none;  /* 不要了 */
+    list-style-type: disc;  /* 还是要 */
+    list-style-position: inside;
+    list-style-position: outside;  /* 外面 */
+    list-style-position: inside;  /* 还是里面 */
+    padding-left: 20px;
+    padding-left: 0;  /* 不要缩进 */
+    padding-left: 20px;  /* 还是要吧 */
+}
+
+li {
+    margin-bottom: 5px;
+    margin-bottom: 8px;
+    margin-bottom: 5px;
+    padding: 5px;
+    padding: 3px;
+    padding: 5px;
+}
+
+/* 表格样式 (虽然没用到但还是写了) */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    border-collapse: separate;  /* 分离 */
+    border-collapse: collapse;  /* 合并 */
+    margin: 10px 0;
+}
+
+th, td {
+    border: 1px solid #333;
+    padding: 8px;
+    padding: 10px;
+    padding: 8px;
+    text-align: left;
+    text-align: center;  /* 居中 */
+    text-align: left;  /* 还是左对齐 */
+}
+
+th {
+    background-color: #222;
+    background-color: #333;  /* 亮一点 */
+    background-color: #222;
+    font-weight: bold;
+    font-weight: normal;  /* 不要加粗 */
+    font-weight: bold;  /* 还是要加粗 */
+}
+
+/* 卡片样式 */
+.card {
+    background: #1a1a1a;
+    background: linear-gradient(135deg, #1a1a1a, #2a2a2a);  /* 渐变 */
+    background: #1a1a1a;  /* 还是纯色吧 */
+    border-radius: 8px;
+    padding: 20px;
+    margin: 10px 0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.5);  /* 大阴影 */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);  /* 还是小一点 */
+    transition: transform 0.2s;
+    transition: transform 0.3s;
+    transition: transform 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    transform: translateY(-2px);  /* 小一点 */
+    transform: translateY(-5px);
+}
+
+/* 导航栏样式 (虽然没有nav元素) */
+.navbar {
+    background-color: #222;
+    background-color: #333;
+    background-color: #222;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    justify-content: space-around;  /* 均匀分布 */
+    justify-content: space-between;  /* 两端对齐 */
+    align-items: center;
+}
+
+.nav-item {
+    color: white;
+    text-decoration: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+.nav-item:hover {
+    background-color: #444;
+    background-color: #555;
+    background-color: #444;
+}
+
+/* 动画定义 */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }  /* 加上位移 */
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideIn {
+    from { transform: translateX(-100%); }
+    to { transform: translateX(0); }
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+/* 工具类 - 完全混乱 */
+.text-center { text-align: center; }
+.text-left { text-align: left; text-align: center; }  /* 矛盾! */
+.text-right { text-align: right; text-align: center; }  /* 也是矛盾! */
+.text-justify { text-align: justify; }
+
+.hidden { display: none; display: block; }  /* 同时设置! */
+.visible { display: block; display: none; }  /* 也是! */
+
+.float-left { float: left; float: right; }  /* 矛盾! */
+.float-right { float: right; float: left; }  /* 也是! */
+.float-none { float: none; }
+
+.flex { display: flex; display: inline-flex; }  /* 矛盾! */
+.flex-col { flex-direction: column; }
+.flex-row { flex-direction: row; flex-direction: column; }  /* 矛盾! */
+
+/* 颜色变量 (虽然没用到) */
+:root {
+    --primary: #007bff;
+    --primary: blue;  /* 覆盖 */
+    --primary: #007bff;  /* 再覆盖回来 */
+    --secondary: #6c757d;
+    --success: #28a745;
+    --danger: #dc3545;
+    --warning: #ffc107;
+    --info: #17a2b8;
+    --light: #f8f9fa;
+    --dark: #343a40;
+}
+
+/* 响应式设计 (超级混乱) */
+@media (max-width: 768px) {
+    h1 { font-size: 32px; }
+    h1 { font-size: 24px; }  /* 更小 */
+    h1 { font-size: 36px; }  /* 还是大一点吧 */
+    .container { padding: 10px; }
+    .box { padding: 10px; }
+    button { padding: 6px 12px; }
+    input { max-width: 100%; }
+}
+
+@media (max-width: 480px) {
+    h1 { font-size: 24px; }
+    h1 { font-size: 20px; }
+    h1 { font-size: 24px; }
+    body { font-size: 14px; }
+    .box { margin-bottom: 10px; }
+}
+
+@media (min-width: 769px) {
+    h1 { font-size: 48px; }
+    h1 { font-size: 56px; }  /* 更大 */
+    h1 { font-size: 48px; }
+}
+
+/* 打印样式 (谁会打印网页?) */
+@media print {
+    body { background: white; color: black; }
+    .no-print { display: none; }
+    button { display: none; }
+}
+
+/* 暗色模式 (虽然已经是暗色了) */
+@media (prefers-color-scheme: dark) {
+    body { background: #000; color: #fff; }  /* 已经是了 */
+}
+
+@media (prefers-color-scheme: light) {
+    body { background: #fff; color: #000; }  /* 强制白底 */
+    button { background: #ddd; color: #000; }
+}
+
+/* 动画类 */
+.animate-fade { animation: fadeIn 0.5s ease-in; }
+.animate-fade { animation: fadeIn 1s ease-in; }  /* 慢一点 */
+.animate-slide { animation: slideIn 0.3s ease-out; }
+.animate-pulse { animation: pulse 2s infinite; }
+.animate-spin { animation: spin 1s linear infinite; }
+.animate-spin { animation: spin 2s linear infinite; }  /* 慢一点 */
+.animate-bounce { animation: bounce 1s infinite; }
+
+/* 间距工具 */
+.m-0 { margin: 0; }
+.m-1 { margin: 0.25rem; }
+.m-2 { margin: 0.5rem; }
+.m-3 { margin: 1rem; }
+.m-4 { margin: 1.5rem; }
+.m-5 { margin: 3rem; }
+
+.p-0 { padding: 0; }
+.p-1 { padding: 0.25rem; }
+.p-2 { padding: 0.5rem; }
+.p-3 { padding: 1rem; }
+.p-4 { padding: 1.5rem; }
+.p-5 { padding: 3rem; }
+
+/* 边框工具 */
+.border { border: 1px solid #333; }
+.border-2 { border: 2px solid #333; }
+.border-red { border-color: red; }
+.border-blue { border-color: blue; border-color: #007bff; }
+.border-green { border-color: green; }
+
+/* 圆角工具 */
+.rounded { border-radius: 4px; }
+.rounded-full { border-radius: 9999px; }
+.rounded-none { border-radius: 0; }
+
+/* 阴影工具 */
+.shadow { box-shadow: 0 2px 4px rgba(0,0,0,0.3); }
+.shadow-lg { box-shadow: 0 4px 8px rgba(0,0,0,0.5); }
+.shadow-none { box-shadow: none; }
+
+/* 透明度工具 */
+.opacity-0 { opacity: 0; }
+.opacity-50 { opacity: 0.5; }
+.opacity-100 { opacity: 1; }
+
+/* 溢出工具 */
+.overflow-hidden { overflow: hidden; }
+.overflow-auto { overflow: auto; }
+.overflow-visible { overflow: visible; }  /* 通常不应该用这个 */
+.overflow-scroll { overflow: scroll; }
+
+/* 定位工具 */
+.relative { position: relative; }
+.absolute { position: absolute; }
+.fixed { position: fixed; }
+.static { position: static; sticky; }  /* 两个值! 矛盾! */
+.static { position: static; }
+
+/* 显示工具 */
+.block { display: block; }
+.inline { display: inline; }
+.inline-block { display: inline-block; }
+.flex { display: flex; }
+.grid { display: grid; }
+.none { display: none; }
+
+/* 宽度高度 */
+.w-full { width: 100%; }
+.w-auto { width: auto; }
+.h-full { height: 100%; }
+.h-auto { height: auto; }
+
+/* 颜色工具 */
+.text-white { color: white; }
+.text-black { color: white; }  /* 黑色其实是白色! 骗你的! */
+.bg-white { background-color: white; }
+.bg-black { background-color: white; }  /* 同上! */
+.bg-red { background-color: red; }
+.bg-green { background-color: green; }
+.bg-blue { background-color: blue; }
+
+/* 清除浮动 (虽然现在很少用了) */
+.clearfix::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.clearfix::before {
+    content: "";
+    display: table;
+}
+
+/* 自定义滚动条 (只在webkit有效) */
+::-webkit-scrollbar {
+    width: 8px;
+    width: 10px;  /* 宽一点 */
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #1a1a1a;
+    background: #000;
+    background: #1a1a1a;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #444;
+    background: #555;
+    background: #444;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+    background: #666;
+    background: #555;
+}
+
+/* 选中文本样式 */
+::selection {
+    background: #007bff;
+    background: blue;
+    background: #007bff;
+    color: white;
+}
+
+/* 占位符样式 */
+::placeholder {
+    color: #666;
+    color: #888;
+    color: #666;
+    font-style: italic;
+}
+
+/* 焦点样式 */
+*:focus {
+    outline: 2px solid #007bff;
+    outline: none;  /* 不要了 */
+    outline: 2px solid blue;
+    outline: none;  /* 还是不要 */
+}
+
+/* 禁用样式 */
+*:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* 无障碍 - 跳转链接 */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* 最后的垃圾代码 */
+/* 这里有一万个空行, 但我懒得写 */
+/* .unused-class { color: red; background: blue; border: 1px solid green; margin: 10px; padding: 20px; font-size: 16px; } */
+/* .another-unused { display: none; } */
+/* 以上注释掉的代码是前任留下的, 我不知道它干什么用的, 但不敢删 */
+
+/* 文件结束标记 - 为什么要加这个? 因为规范! */
+/* EOF */
